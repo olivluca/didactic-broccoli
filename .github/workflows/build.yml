@@ -38,8 +38,8 @@ jobs:
           ./scripts/feeds install libab
           ./scripts/feeds install svd
           ./scripts/feeds install luci-app-svd
-          make package/svd/compile
-          make package/luci-app-svd/compile
+          make -j1 V=s package/svd/compile
+          make -j1 V=s package/luci-app-svd/compile
      
       - uses: actions/Upload-artifact@v2
         with:
