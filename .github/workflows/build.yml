@@ -38,7 +38,12 @@ jobs:
           ./scripts/feeds install libab
           ./scripts/feeds install svd
           ./scripts/feeds install luci-app-svd
-          cp target/linux/lantiq/config-5.4 ./.config
           make package/svd/compile
           make package/luci-app-svd/compile
+     
+      - uses: actions/Upload-artifact@v2
+        with:
+          name: packages
+          path: openwrt-sdk-*/bin/packages/*/custom/
+          
 
