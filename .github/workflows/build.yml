@@ -26,7 +26,14 @@ jobs:
       - name: obtains the sdk
         run: |
           curl https://downloads.openwrt.org/releases/21.02.1/targets/lantiq/xway/openwrt-sdk-21.02.1-lantiq-xway_gcc-8.4.0_musl.Linux-x86_64.tar.xz | tar -J -x
+          
+      - name: build packages
+        run: |
           cd openwrt-sdk-*
           echo "src-git custom https://github.com/olivluca/danube-voip" >> feeds.conf.default
           ./scripts/feeds update -a
-          ./scripts/feeds install danube-voip
+          ./scripts/feeds install sofia-sip
+          ./scripts/feeds install libab
+          ./scripts/feeds install svd
+          ./scripts/feeds install luci-app-svd
+          make 
