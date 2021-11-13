@@ -1,4 +1,4 @@
-name: build packages for openwrt 21.02.1
+name: build packages for openwrt 19.07.8
 
 on:
   # Triggers the workflow on push or pull request events but only for the master branch
@@ -25,8 +25,8 @@ jobs:
           
       - name: obtains the sdk and config
         run: |
-          curl https://downloads.openwrt.org/releases/21.02.1/targets/lantiq/xway/openwrt-sdk-21.02.1-lantiq-xway_gcc-8.4.0_musl.Linux-x86_64.tar.xz | tar -J -x
-          curl https://downloads.openwrt.org/releases/21.02.1/targets/lantiq/xway/openwrt-imagebuilder-21.02.1-lantiq-xway.Linux-x86_64.tar.xz | tar -J -x
+          curl https://downloads.openwrt.org/releases/19.07.8/targets/lantiq/xway/openwrt-sdk-19.07.8-lantiq-xway_gcc-7.5.0_musl.Linux-x86_64.tar.xz | tar -J -x
+          curl https://downloads.openwrt.org/releases/19.07.8/targets/lantiq/xway/openwrt-imagebuilder-19.07.8-lantiq-xway.Linux-x86_64.tar.xz | tar -J -x
           cp openwrt-imagebuilder*/.config openwrt-sdk-*/
           
       - name: build packages
