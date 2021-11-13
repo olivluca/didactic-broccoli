@@ -23,9 +23,11 @@ jobs:
           sudo apt-get -q update
           sudo apt-get -y install build-essential ccache ecj fastjar file g++ gawk gettext git java-propose-classpath libelf-dev libncurses5-dev libncursesw5-dev libssl-dev python python2.7-dev python3 unzip wget python3-distutils python3-setuptools python3-dev rsync subversion swig time xsltproc zlib1g-dev
           
-      - name: obtains the sdk
+      - name: obtains the sdk and config
         run: |
           curl https://downloads.openwrt.org/releases/21.02.1/targets/lantiq/xway/openwrt-sdk-21.02.1-lantiq-xway_gcc-8.4.0_musl.Linux-x86_64.tar.xz | tar -J -x
+          curl https://downloads.openwrt.org/releases/21.02.1/targets/lantiq/xway/openwrt-imagebuilder-21.02.1-lantiq-xway.Linux-x86_64.tar.xz | tar -J -x .config
+          cp openwrt-imagebuilder*/.config openwrt-sdk-*/
           
       - name: build packages
         run: |
@@ -36,4 +38,7 @@ jobs:
           ./scripts/feeds install libab
           ./scripts/feeds install svd
           ./scripts/feeds install luci-app-svd
-          make 
+          cp target/linux/lantiq/config-5.4 ./.config
+          make package/svd/compile
+          make package/luci-app-svd/compile
+
