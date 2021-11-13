@@ -38,8 +38,14 @@ jobs:
           ./scripts/feeds install libab
           ./scripts/feeds install svd
           ./scripts/feeds install luci-app-svd
+          make -j1 V=s package/sofia-sip/compile
+          make -j1 V=s package/sofia-sip/install
+          make -j1 V=s package/libab/compile
+          make -j1 V=s package/libab/install
           make -j1 V=s package/svd/compile
+          make -j1 V=s package/svd/install
           make -j1 V=s package/luci-app-svd/compile
+          make -j1 V=s package/luci-app-svd/install
      
       - uses: actions/Upload-artifact@v2
         with:
