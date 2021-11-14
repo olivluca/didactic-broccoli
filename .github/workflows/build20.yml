@@ -1,0 +1,46 @@
+name: build packages for openwrt 21.02.1
+
+on:
+  # Triggers the workflow on push or pull request events but only for the master branch
+  #push:
+  #  branches: [ master ]
+  #pull_request:
+  #  branches: [ master ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - name: install prerequisites
+        run: |
+          sudo apt-get -q update
+          sudo apt-get -y install build-essential ccache ecj fastjar file g++ gawk gettext git java-propose-classpath libelf-dev libncurses5-dev libncursesw5-dev libssl-dev python python2.7-dev python3 unzip wget python3-distutils python3-setuptools python3-dev rsync subversion swig time xsltproc zlib1g-dev
+          
+      - name: obtains the sdk and config
+        run: |
+          curl https://downloads.openwrt.org/releases/21.02.1/targets/lantiq/xway/openwrt-sdk-21.02.1-lantiq-xway_gcc-8.4.0_musl.Linux-x86_64.tar.xz | tar -J -x
+          #curl https://downloads.openwrt.org/releases/19.07.8/targets/lantiq/xway/openwrt-imagebuilder-19.07.8-lantiq-xway.Linux-x86_64.tar.xz | tar -J -x
+          #cp openwrt-imagebuilder*/.config openwrt-sdk-*/
+          
+      - name: build packages
+        run: |
+          cd openwrt-sdk-*
+          #echo "src-git custom https://github.com/olivluca/danube-voip" >> feeds.conf.default
+          ./scripts/feeds update -a
+          ./scripts/feeds install -a
+          make defconfig
+          make -j1 V=s package/ltq-tapi/compile
+     
+      - uses: actions/Upload-artifact@v2
+        with:
+          name: packages
+          path: openwrt-sdk-*/bin/packages/*/custom/
+          
+
