@@ -32,19 +32,20 @@ jobs:
       - name: build packages
         run: |
           cd openwrt-sdk-*
-          echo "src-git custom https://github.com/olivluca/danube-voip" >> feeds.conf.default
+          #echo "src-git custom https://github.com/olivluca/danube-voip" >> feeds.conf.default
           ./scripts/feeds update -a
-          ./scripts/feeds install sofia-sip
-          ./scripts/feeds install libab
-          ./scripts/feeds install svd
-          ./scripts/feeds install luci-app-svd
-          make -j1 V=s package/sofia-sip/compile
+          ./scripts/feeds install -a
+          make
+          #./scripts/feeds install libab
+          #./scripts/feeds install svd
+          #./scripts/feeds install luci-app-svd
+          #make -j1 V=s package/sofia-sip/compile
           # make -j1 V=s package/sofia-sip/install
-          make -j1 V=s package/libab/compile
+          ##make -j1 V=s package/libab/compile
           # make -j1 V=s package/libab/install
-          make -j1 V=s package/svd/compile
+          #make -j1 V=s package/svd/compile
           # make -j1 V=s package/svd/install
-          make -j1 V=s package/luci-app-svd/compile
+          #make -j1 V=s package/luci-app-svd/compile
           # make -j1 V=s package/luci-app-svd/install
      
       - uses: actions/Upload-artifact@v2
