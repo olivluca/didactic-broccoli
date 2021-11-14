@@ -26,8 +26,8 @@ jobs:
       - name: obtains the sdk and config
         run: |
           curl https://downloads.openwrt.org/releases/19.07.8/targets/lantiq/xway/openwrt-sdk-19.07.8-lantiq-xway_gcc-7.5.0_musl.Linux-x86_64.tar.xz | tar -J -x
-          curl https://downloads.openwrt.org/releases/19.07.8/targets/lantiq/xway/openwrt-imagebuilder-19.07.8-lantiq-xway.Linux-x86_64.tar.xz | tar -J -x
-          cp openwrt-imagebuilder*/.config openwrt-sdk-*/
+          #curl https://downloads.openwrt.org/releases/19.07.8/targets/lantiq/xway/openwrt-imagebuilder-19.07.8-lantiq-xway.Linux-x86_64.tar.xz | tar -J -x
+          #cp openwrt-imagebuilder*/.config openwrt-sdk-*/
           
       - name: build packages
         run: |
@@ -35,18 +35,8 @@ jobs:
           #echo "src-git custom https://github.com/olivluca/danube-voip" >> feeds.conf.default
           ./scripts/feeds update -a
           ./scripts/feeds install -a
-          make
-          #./scripts/feeds install libab
-          #./scripts/feeds install svd
-          #./scripts/feeds install luci-app-svd
-          #make -j1 V=s package/sofia-sip/compile
-          # make -j1 V=s package/sofia-sip/install
-          ##make -j1 V=s package/libab/compile
-          # make -j1 V=s package/libab/install
-          #make -j1 V=s package/svd/compile
-          # make -j1 V=s package/svd/install
-          #make -j1 V=s package/luci-app-svd/compile
-          # make -j1 V=s package/luci-app-svd/install
+          make defconfig
+          make -j1 V=s package/ltq-tapi/compile
      
       - uses: actions/Upload-artifact@v2
         with:
