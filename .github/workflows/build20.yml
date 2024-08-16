@@ -1,4 +1,4 @@
-name: build packages for openwrt 21.02.1
+name: build packages for openwrt 23.05.4
 
 on:
   # Triggers the workflow on push or pull request events but only for the master branch
