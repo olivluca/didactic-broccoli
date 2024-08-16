@@ -37,6 +37,7 @@ jobs:
           ./scripts/feeds install -a
           make defconfig
           make -j1 V=s package/ltq-tapi/compile
+          make -j1 V=s package/svd/compile
      
       - uses: actions/Upload-artifact@v2
         with:
