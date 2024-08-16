@@ -45,9 +45,9 @@ jobs:
           #make -j1 V=s package/ltq-tapi/compile
           make -j1 V=s package/luci-app-svd/compile
      
-      - uses: actions/Upload-artifact@v2
+      - uses: actions/Upload-artifact@v4
         with:
-          name: packages
+          name: packages-23.05.4
           path: openwrt-sdk-*/bin/
           
 
