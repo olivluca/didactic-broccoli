@@ -35,6 +35,8 @@ jobs:
           echo "src-git custom https://github.com/olivluca/danube-voip" >> feeds.conf.default
           ./scripts/feeds update -a
           ./scripts/feeds install -a
+          ./scripts/feeds uninstall sofia-sip
+          ./scripts/feeds install -p custom -f sofia-sip
           make defconfig
           make -j1 V=s package/ltq-tapi/compile
           make -j1 V=s package/svd/compile
