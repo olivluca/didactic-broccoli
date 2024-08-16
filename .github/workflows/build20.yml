@@ -41,6 +41,6 @@ jobs:
       - uses: actions/Upload-artifact@v2
         with:
           name: packages
-          path: openwrt-sdk-*/bin/packages/*/custom/
+          path: openwrt-sdk-*/bin/
           
 
