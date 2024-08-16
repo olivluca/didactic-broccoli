@@ -26,18 +26,22 @@ jobs:
       - name: obtains the sdk and config
         run: |
           curl https://downloads.openwrt.org/releases/23.05.4/targets/lantiq/xway/openwrt-sdk-23.05.4-lantiq-xway_gcc-12.3.0_musl.Linux-x86_64.tar.xz | tar -J -x
-          curl https://downloads.openwrt.org/releases/23.05.4/targets/lantiq/xway/openwrt-imagebuilder-23.05.4-lantiq-xway.Linux-x86_64.tar.xz | tar -J -x
-          cp openwrt-imagebuilder*/.config openwrt-sdk-*/
+          #curl https://downloads.openwrt.org/releases/23.05.4/targets/lantiq/xway/openwrt-imagebuilder-23.05.4-lantiq-xway.Linux-x86_64.tar.xz | tar -J -x
+          #cp openwrt-imagebuilder*/.config openwrt-sdk-*/
           
       - name: build packages
         run: |
           cd openwrt-sdk-*
+
           echo "src-git custom https://github.com/olivluca/danube-voip-test" >> feeds.conf.default
           ./scripts/feeds update -a
           ./scripts/feeds install -a
           ./scripts/feeds uninstall sofia-sip
           ./scripts/feeds install -p custom -f sofia-sip
           make defconfig
+          echo "CONFIG_PACKAGE_svd=m" >> .config
+          echo "CONFIG_PACKAGE_luci-app-svd=m" >> .config
+          echo "CONFIG_PACKAGE_sofia-sip=m" >> .config
           #make -j1 V=s package/ltq-tapi/compile
           make -j1 V=s package/luci-app-svd/compile
      
