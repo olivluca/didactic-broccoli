@@ -42,6 +42,13 @@ jobs:
           echo "CONFIG_PACKAGE_svd=m" >> .config
           echo "CONFIG_PACKAGE_luci-app-svd=m" >> .config
           echo "CONFIG_PACKAGE_sofia-sip=m" >> .config
+          # get the version without the extra printf
+          cd feeds/custom
+          git pull --unshallow
+          git checkout 95828284e5443f0e8b666019b152c50d0aa303dd
+          rm sofia-sip/patches/400-compliance-with-gcc-4.8
+          cd ../..
+          #######
           #make -j1 V=s package/ltq-tapi/compile
           make -j1 V=s package/luci-app-svd/compile
       - name: build custom image
