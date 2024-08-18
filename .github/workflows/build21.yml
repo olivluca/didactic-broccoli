@@ -1,4 +1,4 @@
-name: build packages and custom image for openwrt 23.05.4 (svd WITHOUT the extra printf)
+name: build packages and custom image for openwrt 23.05.4 (svd WITH the extra printf)
 
 on:
   # Triggers the workflow on push or pull request events but only for the master branch
