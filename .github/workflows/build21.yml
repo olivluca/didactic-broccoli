@@ -60,7 +60,7 @@ jobs:
       - uses: actions/Upload-artifact@v4
         with:
           name: packages-23.05.4
-          path: openwrt-sdk-*/bin/
+          path: openwrt-sdk-*/bin/packages/mips_24kc/custom/
           
       - uses: actions/Upload-artifact@v4
         with:
